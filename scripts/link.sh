@@ -1,6 +1,6 @@
 #!/bin/bash
 
 rm -rf build
-mkdir -p build/code
-docker run --user=$UID --entrypoint=/bin/bash -it  -v $PWD:/var/task lambci/lambda:build-python3.6 ./scripts/package.sh
-#ln -sv main.py build/code/
+mkdir -p build
+docker build -t lambda .
+docker run -v $PWD:/outputs -v $PWD/build:/lambda_build/lib/python3.6/site-packages -it lambda /bin/bash /outputs/install_python_packages_docker_venv.sh

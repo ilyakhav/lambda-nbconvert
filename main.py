@@ -1,25 +1,23 @@
 import os
 import sys
+import json
+import logging
+import nbformat
+import subprocess
+from io import StringIO
+from timeit import default_timer as timer
+
+from nbconvert.preprocessors import ExecutePreprocessor
 
 
 CURRENT_DIR = os.getcwd()
-BUILD_DIR = os.path.join(os.getcwd(), "build", "code")
+BUILD_DIR = os.path.join(os.getcwd(), "build")
 
 sys.path.append(CURRENT_DIR)
 sys.path.append(BUILD_DIR)
 
 os.environ['PYTHONPATH'] = os.environ['PYTHONPATH'] + ":" + CURRENT_DIR + ":" + BUILD_DIR
 
-
-
-
-import logging
-import nbformat
-from nbconvert.preprocessors import ExecutePreprocessor
-from io import StringIO
-import json
-
-from timeit import default_timer as timer
 logger = logging.getLogger(__name__)
 
 
@@ -44,11 +42,11 @@ def execute_notebook(source):
     logger.debug("Returning results")
     return ex.getvalue()
 
+
 homepage = ""
 with open('index.html') as f:
     homepage=f.read()
 
-# print(homepage)
 
 def handler(event, context):
     print(event)
