@@ -3,7 +3,7 @@ Description: Jupyter Executor Service.
 Resources:
   JupyterExecutor:
     Properties:
-      CodeUri: s3://jupyter-sam-bundle-dev/c1346f856ac2dfd4e224d11206e03368
+      CodeUri: s3://jupyter-sam-bundle-dev/caccd5b3e7b2158c1b8c66ddbe2617fa
       Events:
         ExecuteNotebook:
           Properties:

@@ -2,13 +2,10 @@ import os
 import sys
 import json
 import logging
-import nbformat
-import subprocess
+import ctypes
+
 from io import StringIO
 from timeit import default_timer as timer
-
-from nbconvert.preprocessors import ExecutePreprocessor
-
 
 CURRENT_DIR = os.getcwd()
 BUILD_DIR = os.path.join(os.getcwd(), "build")
@@ -22,12 +19,13 @@ logger = logging.getLogger(__name__)
 
 
 def execute_notebook(source):
+    import nbformat
+    from nbconvert.preprocessors import ExecutePreprocessor
     """
 
     :param source: Jupyter Notebook
     :return: Result of the notebook invocation
     """
-
     logger.debug("Executing notebook")
     in_memory_source = StringIO(source)
     nb = nbformat.read(in_memory_source, as_version=4)
@@ -49,6 +47,12 @@ with open('index.html') as f:
 
 
 def handler(event, context):
+    for d, _, files in os.walk('lib'):
+        for f in files:
+            if f.endswith('.a'):
+                continue
+            ctypes.cdll.LoadLibrary(os.path.join(d, f))
+
     print(event)
     print("--body-")
     print(event["body"])
