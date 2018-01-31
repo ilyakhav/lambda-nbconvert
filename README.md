@@ -10,9 +10,9 @@ AWS SAM project that allows invoking Jupyter notebooks dynamically using the AWS
 If running the API for the first time, or **when requirements.txt** file was updated, the following script
 should be executed first:
 
-    ./scripts/link.sh
+    ./scripts/build.sh
     
-It will install and build all dependencies against the Amazon Linux and will place them in the `build/code` 
+It will install and build all dependencies against the Amazon Linux and will place them in the `build/` 
 directory.
 
 
